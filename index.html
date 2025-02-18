@@ -4,7 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Productivity Mastery | Future-Proof Your Career</title>
+    <!-- Add your Google site verification meta tag here when provided -->
+    <meta name="google-site-verification" content="your-verification-code-here" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <!-- Replace G-XXXXXXXXXX with your actual Google Analytics 4 Measurement ID -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX'); // Replace with your actual GA4 Measurement ID
+    </script>
+    
+    <!-- Replace XXXXXXXXXXXXXXXXX with your actual Meta Pixel ID -->
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', 'XXXXXXXXXXXXXXXXX'); // Replace with your actual Meta Pixel ID
+        fbq('track', 'PageView');
+    </script>
     <style>
         :root {
             --primary: #2563eb;
@@ -131,6 +155,75 @@
             margin-bottom: 1rem;
         }
 
+        .email-collection {
+            background: white;
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .email-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 500px;
+            margin: 1.5rem auto;
+        }
+
+        .email-input {
+            flex: 1;
+            padding: 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        .email-input:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+
+        .cookie-consent {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 1rem;
+            box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.05);
+            display: none;
+            z-index: 1000;
+        }
+
+        .cookie-consent.visible {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .price-tag {
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-top: 1rem;
+            display: inline-block;
+        }
+
+        .countdown {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 500;
+            margin-top: 1rem;
+            display: inline-block;
+        }
+
         @media (max-width: 768px) {
             .hero h1 {
                 font-size: 2.5rem;
@@ -171,6 +264,18 @@
                 </div>
             </div>
 
+            <div class="email-collection">
+                <h2>Get Early Access + 50% Discount</h2>
+                <p style="margin: 1rem 0;">Join the waitlist to receive exclusive early-bird pricing and bonus content.</p>
+                <div class="price-tag">Regular Price: $499 → Early Bird: $249</div>
+                <div class="countdown">Limited Time Offer: Next 48 Hours Only</div>
+                <!-- Mailchimp Signup Form -->
+                <form action="https://your-account.us1.list-manage.com/subscribe/post" method="POST" class="email-form">
+                    <input type="email" name="EMAIL" class="email-input" placeholder="Enter your work email" required>
+                    <button type="submit" class="cta-button">Claim Your Spot</button>
+                </form>
+            </div>
+
             <div class="features-grid">
                 <div class="feature-card">
                     <h3>🤖 AI Agent Mastery</h3>
@@ -203,5 +308,49 @@
             <a href="#enroll" class="cta-button" style="font-size: 1.25rem;">Enroll Now (Limited Spots Available) →</a>
         </div>
     </section>
+
+    <div class="cookie-consent">
+        <p>We use cookies to improve your experience and analyze site usage.</p>
+        <button class="cta-button" onclick="acceptCookies()">Accept</button>
+    </div>
+
+    <script>
+        // Cookie consent management
+        function acceptCookies() {
+            document.querySelector('.cookie-consent').style.display = 'none';
+            localStorage.setItem('cookiesAccepted', 'true');
+        }
+
+        // Show cookie consent if not previously accepted
+        if (!localStorage.getItem('cookiesAccepted')) {
+            document.querySelector('.cookie-consent').classList.add('visible');
+        }
+
+        // Countdown Timer
+        function updateCountdown() {
+            const now = new Date();
+            const end = new Date(now.getTime() + 48 * 60 * 60 * 1000);
+            const diff = end - now;
+            
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            
+            document.querySelector('.countdown').textContent = 
+                `Limited Time Offer: ${hours}h ${minutes}m remaining`;
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 60000);
+
+        // Track form submissions
+        document.querySelector('.email-form').addEventListener('submit', function(e) {
+            gtag('event', 'generate_lead', {
+                'event_category': 'engagement',
+                'event_label': 'waitlist_signup'
+            });
+            
+            fbq('track', 'Lead');
+        });
+    </script>
 </body>
 </html> 
