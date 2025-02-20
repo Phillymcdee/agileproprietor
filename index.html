@@ -14,6 +14,11 @@
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
         gtag('config', 'G-NGYG14JXP3');
+        // Test event
+        gtag('event', 'page_view', {
+            page_title: document.title,
+            page_location: window.location.href
+        });
     </script>
     
     <!-- Replace XXXXXXXXXXXXXXXXX with your actual Meta Pixel ID -->
